@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scripts.subscriber &mdash; assignment_2_2022 1.0 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            assignment_2_2022
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">assignment_2_2022</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">scripts.subscriber</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for scripts.subscriber</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">.. module:: subscriber</span>
+<span class="sd">   :platform: Unix</span>
+<span class="sd">   :synopsis: Python module for subscribing the robot state</span>
+<span class="sd">.. moduleauthor:: Ecem Isildar</span>
+
+<span class="sd">Ros node subscribes to a custom message containing the robot&#39;s pose and velocity, and </span>
+<span class="sd">prints the distance between the robot&#39;s current position and the goal position, as well as </span>
+<span class="sd">the robot&#39;s average velocity.</span>
+
+<span class="sd">The distance and average velocity are calculated when a goal message is received.</span>
+
+<span class="sd">The node listens to the &#39;robot_state&#39; topic for the robot&#39;s current position and velocity, </span>
+<span class="sd">and the &#39;goal_message&#39; topic for the goal position.</span>
+
+<span class="sd">Subscriber:</span>
+<span class="sd">/odom</span>
+
+<span class="sd">Publisher:</span>
+<span class="sd">/robot_state</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+
+<span class="kn">import</span> <span class="nn">rospy</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">assignment_2_2022.msg</span> <span class="kn">import</span> <span class="n">RobotState</span>
+<span class="kn">from</span> <span class="nn">geometry_msgs.msg</span> <span class="kn">import</span> <span class="n">Point</span>
+
+<span class="c1"># Initialize global variables for distance and average velocity</span>
+<span class="n">distance</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">avg_speed</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">current_position</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">goal_position</span> <span class="o">=</span> <span class="mi">0</span>
+
+<div class="viewcode-block" id="state_callback"><a class="viewcode-back" href="../../index.html#scripts.subscriber.state_callback">[docs]</a><span class="k">def</span> <span class="nf">state_callback</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Callback function for the &#39;robot_state&#39; subscriber.</span>
+
+<span class="sd">    Extracts the position and velocity data from the message and updates the current_position global variable.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        msg (RobotState): The message containing the robot&#39;s pose and velocity.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">x</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">y</span>
+    
+    <span class="c1"># Update global variable</span>
+    <span class="k">global</span> <span class="n">current_position</span>
+    <span class="n">current_position</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span></div>
+    
+
+<div class="viewcode-block" id="goal_callback"><a class="viewcode-back" href="../../index.html#scripts.subscriber.goal_callback">[docs]</a><span class="k">def</span> <span class="nf">goal_callback</span><span class="p">(</span><span class="n">goal_msg</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Callback function for the &#39;goal_message&#39; subscriber.</span>
+
+<span class="sd">    Extracts the goal position data from the message and calculates the distance and average velocity </span>
+<span class="sd">    between the current position and goal position.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        goal_msg (Point): The message containing the goal position.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x_</span> <span class="o">=</span> <span class="n">goal_msg</span><span class="o">.</span><span class="n">x</span>
+    <span class="n">y_</span> <span class="o">=</span> <span class="n">goal_msg</span><span class="o">.</span><span class="n">y</span>
+    
+    <span class="c1"># Update global variables</span>
+    <span class="k">global</span> <span class="n">goal_position</span><span class="p">,</span> <span class="n">distance</span><span class="p">,</span> <span class="n">avg_speed</span>
+    
+    <span class="c1"># Calculate distance and average velocity</span>
+    <span class="n">goal_position</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">x_</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y_</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">distance</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">goal_position</span> <span class="o">-</span> <span class="n">current_position</span><span class="p">)</span>
+    <span class="n">avg_speed</span> <span class="o">=</span> <span class="n">distance</span><span class="o">*</span><span class="n">rospy</span><span class="o">.</span><span class="n">get_param</span><span class="p">(</span><span class="s2">&quot;freq&quot;</span><span class="p">)</span>
+    
+    <span class="n">rospy</span><span class="o">.</span><span class="n">loginfo</span><span class="p">(</span><span class="s2">&quot;Received goal position: (</span><span class="si">%f</span><span class="s2">, </span><span class="si">%f</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">x_</span><span class="p">,</span> <span class="n">y_</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="listener"><a class="viewcode-back" href="../../index.html#scripts.subscriber.listener">[docs]</a><span class="k">def</span> <span class="nf">listener</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initializes the node, subscribes to the &#39;robot_state&#39; and &#39;goal_message&#39; topics, and </span>
+<span class="sd">    prints the remaining distance and average velocity until the node is shut down.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Initialize the ROS node</span>
+    <span class="n">rospy</span><span class="o">.</span><span class="n">init_node</span><span class="p">(</span><span class="s1">&#39;subscriber&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># Subscribe to the &quot;robot_state&quot; and &quot;goal_message&quot; topics</span>
+    <span class="n">rospy</span><span class="o">.</span><span class="n">Subscriber</span><span class="p">(</span><span class="s1">&#39;robot_state&#39;</span><span class="p">,</span> <span class="n">RobotState</span><span class="p">,</span> <span class="n">state_callback</span><span class="p">)</span>
+    <span class="n">rospy</span><span class="o">.</span><span class="n">Subscriber</span><span class="p">(</span><span class="s1">&#39;goal_message&#39;</span><span class="p">,</span> <span class="n">Point</span><span class="p">,</span> <span class="n">goal_callback</span><span class="p">)</span>
+
+    <span class="c1"># Get the rate parameter</span>
+    <span class="n">rate</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">Rate</span><span class="p">(</span><span class="n">rospy</span><span class="o">.</span><span class="n">get_param</span><span class="p">(</span><span class="s2">&quot;freq&quot;</span><span class="p">))</span>
+
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">rospy</span><span class="o">.</span><span class="n">is_shutdown</span><span class="p">():</span>
+        <span class="c1"># Print the remaining distance and average velocity</span>
+        <span class="n">rospy</span><span class="o">.</span><span class="n">loginfo</span><span class="p">(</span><span class="s1">&#39;Remaining distance: </span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">distance</span><span class="p">)</span>
+        <span class="n">rospy</span><span class="o">.</span><span class="n">loginfo</span><span class="p">(</span><span class="s1">&#39;Average velocity: </span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">avg_speed</span><span class="p">)</span>
+        <span class="n">rate</span><span class="o">.</span><span class="n">sleep</span><span class="p">()</span></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">listener</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Ecem Isildar.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

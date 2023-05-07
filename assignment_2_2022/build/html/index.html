@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to assignment_2_2022’s documentation! &mdash; assignment_2_2022 1.0 documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            assignment_2_2022
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Welcome to assignment_2_2022’s documentation!</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a><ul>
+<li><a class="reference internal" href="#assignment-2-2022-documentation">Assignment_2_2022 documentation!</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scripts.client">Client Module</a></li>
+<li><a class="reference internal" href="#module-scripts.publisher">Publisher Module</a></li>
+<li><a class="reference internal" href="#module-scripts.subscriber">Subscriber Module</a></li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">assignment_2_2022</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Welcome to assignment_2_2022’s documentation!</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="welcome-to-assignment-2-2022-s-documentation">
+<h1>Welcome to assignment_2_2022’s documentation!<a class="headerlink" href="#welcome-to-assignment-2-2022-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+<div class="section" id="assignment-2-2022-documentation">
+<h2>Assignment_2_2022 documentation!<a class="headerlink" href="#assignment-2-2022-documentation" title="Permalink to this headline">¶</a></h2>
+<p>This is the documentation of the assignment_2_2022 package!</p>
+</div>
+</div>
+<div class="section" id="module-scripts.client">
+<span id="client-module"></span><h1>Client Module<a class="headerlink" href="#module-scripts.client" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-client"></span><p>Ros Node for taking user input and canceling or adjusting goal position</p>
+<p>Client action:
+/reaching_goal</p>
+<p>Publisher:
+/goal_message</p>
+<dl class="class">
+<dt id="scripts.client.GoalClient">
+<em class="property">class </em><code class="descclassname">scripts.client.</code><code class="descname">GoalClient</code><a class="reference internal" href="_modules/scripts/client.html#GoalClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.client.GoalClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class used to ask, cancel and publish the goal positions.</p>
+<dl class="attribute">
+<dt id="scripts.client.GoalClient.client">
+<code class="descname">client</code><a class="headerlink" href="#scripts.client.GoalClient.client" title="Permalink to this definition">¶</a></dt>
+<dd><p>The action client for the ‘/reaching_goal’ action server.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="xref py py-obj docutils literal notranslate"><span class="pre">actionlib.SimpleActionClient</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scripts.client.GoalClient.goal_pub">
+<code class="descname">goal_pub</code><a class="headerlink" href="#scripts.client.GoalClient.goal_pub" title="Permalink to this definition">¶</a></dt>
+<dd><p>The publisher for the ‘goal_message’ topic.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rospy.Publisher</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scripts.client.GoalClient.goal_x">
+<code class="descname">goal_x</code><a class="headerlink" href="#scripts.client.GoalClient.goal_x" title="Permalink to this definition">¶</a></dt>
+<dd><p>The x coordinate of the goal point.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scripts.client.GoalClient.goal_y">
+<code class="descname">goal_y</code><a class="headerlink" href="#scripts.client.GoalClient.goal_y" title="Permalink to this definition">¶</a></dt>
+<dd><p>The y coordinate of the goal point.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="scripts.client.GoalClient.ask_goal">
+<code class="descname">ask_goal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/client.html#GoalClient.ask_goal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.client.GoalClient.ask_goal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prompt the user to enter the x and y coordinates of the goal point,
+and then send the goal to the action server</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="scripts.client.GoalClient.cancel_goal">
+<code class="descname">cancel_goal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/client.html#GoalClient.cancel_goal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.client.GoalClient.cancel_goal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cancel all active goals</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="scripts.client.GoalClient.publish_goals">
+<code class="descname">publish_goals</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/client.html#GoalClient.publish_goals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.client.GoalClient.publish_goals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Publish the goal position as a Point message on the <em>goal_message</em> topic</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="scripts.client.client_control">
+<code class="descclassname">scripts.client.</code><code class="descname">client_control</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/client.html#client_control"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.client.client_control" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes the node, creates the goal client object and also ask for user input,
+according to the user input it publish the goal position or cancels the position</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-scripts.publisher">
+<span id="publisher-module"></span><h1>Publisher Module<a class="headerlink" href="#module-scripts.publisher" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-publisher"></span><p>Ros node takes the odom data and publishes a custom message containing position and velocity data.</p>
+<p>Subscriber:
+/odom</p>
+<p>Publisher:
+/robot_state</p>
+<dl class="function">
+<dt id="scripts.publisher.odom_callback">
+<code class="descclassname">scripts.publisher.</code><code class="descname">odom_callback</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/publisher.html#odom_callback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.publisher.odom_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback function for the <em>/odom</em> topic subscriber. Extracts the position and velocity data from the message,
+creates a custom RobotState message and publishes it to the ‘/robot_state’ topic.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>msg</strong> (<em>nav_msgs.msg.Odometry</em>) – Odometry message containing position and velocity data</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="scripts.publisher.talker">
+<code class="descclassname">scripts.publisher.</code><code class="descname">talker</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/publisher.html#talker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.publisher.talker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes the node, subscribes to the ‘odom’ topic</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-scripts.subscriber">
+<span id="subscriber-module"></span><h1>Subscriber Module<a class="headerlink" href="#module-scripts.subscriber" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-subscriber"></span><p>Ros node subscribes to a custom message containing the robot’s pose and velocity, and
+prints the distance between the robot’s current position and the goal position, as well as
+the robot’s average velocity.</p>
+<p>The distance and average velocity are calculated when a goal message is received.</p>
+<p>The node listens to the ‘robot_state’ topic for the robot’s current position and velocity,
+and the ‘goal_message’ topic for the goal position.</p>
+<p>Subscriber:
+/odom</p>
+<p>Publisher:
+/robot_state</p>
+<dl class="function">
+<dt id="scripts.subscriber.goal_callback">
+<code class="descclassname">scripts.subscriber.</code><code class="descname">goal_callback</code><span class="sig-paren">(</span><em>goal_msg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/subscriber.html#goal_callback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.subscriber.goal_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback function for the ‘goal_message’ subscriber.</p>
+<p>Extracts the goal position data from the message and calculates the distance and average velocity
+between the current position and goal position.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>goal_msg</strong> (<em>Point</em>) – The message containing the goal position.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="scripts.subscriber.listener">
+<code class="descclassname">scripts.subscriber.</code><code class="descname">listener</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/subscriber.html#listener"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.subscriber.listener" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes the node, subscribes to the ‘robot_state’ and ‘goal_message’ topics, and
+prints the remaining distance and average velocity until the node is shut down.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="scripts.subscriber.state_callback">
+<code class="descclassname">scripts.subscriber.</code><code class="descname">state_callback</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/subscriber.html#state_callback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.subscriber.state_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback function for the ‘robot_state’ subscriber.</p>
+<p>Extracts the position and velocity data from the message and updates the current_position global variable.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>msg</strong> (<em>RobotState</em>) – The message containing the robot’s pose and velocity.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Ecem Isildar.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
