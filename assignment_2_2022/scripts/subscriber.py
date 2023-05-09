@@ -16,10 +16,9 @@ The node listens to the 'robot_state' topic for the robot's current position and
 and the 'goal_message' topic for the goal position.
 
 Subscriber:
-/odom
-
-Publisher:
 /robot_state
+/goal_meesage
+
 """
 
 

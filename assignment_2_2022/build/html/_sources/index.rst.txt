@@ -45,5 +45,10 @@ Subscriber Module
 .. automodule:: scripts.subscriber
    :members:
 
+Goal Tracker Module
+===================
+
+.. automodule:: scripts.goalTracker
+   :members:
 
 

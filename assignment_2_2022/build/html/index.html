@@ -48,6 +48,7 @@
 <li><a class="reference internal" href="#module-scripts.client">Client Module</a></li>
 <li><a class="reference internal" href="#module-scripts.publisher">Publisher Module</a></li>
 <li><a class="reference internal" href="#module-scripts.subscriber">Subscriber Module</a></li>
+<li><a class="reference internal" href="#module-scripts.goalTracker">Goal Tracker Module</a></li>
 </ul>
 </div>
         </div>
@@ -174,7 +175,7 @@ and then send the goal to the action server</p>
 <dl class="method">
 <dt id="scripts.client.GoalClient.publish_goals">
 <code class="descname">publish_goals</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/client.html#GoalClient.publish_goals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.client.GoalClient.publish_goals" title="Permalink to this definition">¶</a></dt>
-<dd><p>Publish the goal position as a Point message on the <em>goal_message</em> topic</p>
+<dd><p>Publish the goal position as a Point message on the ‘goal_message’ topic</p>
 </dd></dl>
 
 </dd></dl>
@@ -225,9 +226,8 @@ the robot’s average velocity.</p>
 <p>The node listens to the ‘robot_state’ topic for the robot’s current position and velocity,
 and the ‘goal_message’ topic for the goal position.</p>
 <p>Subscriber:
-/odom</p>
-<p>Publisher:
-/robot_state</p>
+/robot_state
+/goal_meesage</p>
 <dl class="function">
 <dt id="scripts.subscriber.goal_callback">
 <code class="descclassname">scripts.subscriber.</code><code class="descname">goal_callback</code><span class="sig-paren">(</span><em>goal_msg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/subscriber.html#goal_callback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.subscriber.goal_callback" title="Permalink to this definition">¶</a></dt>
@@ -261,6 +261,69 @@ prints the remaining distance and average velocity until the node is shut down.<
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>msg</strong> (<em>RobotState</em>) – The message containing the robot’s pose and velocity.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-scripts.goalTracker">
+<span id="goal-tracker-module"></span><h1>Goal Tracker Module<a class="headerlink" href="#module-scripts.goalTracker" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-publisher"></span><p>This module contains a ROS node that provides a custom service to count how many goals have been reached
+and how many have been cancelled. It also publishes the count as a message on a specific topic.</p>
+<p>Service:
+/Goal_count</p>
+<p>Publisher:
+/robot_state</p>
+<dl class="function">
+<dt id="scripts.goalTracker.check_feedback">
+<code class="descclassname">scripts.goalTracker.</code><code class="descname">check_feedback</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/goalTracker.html#check_feedback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.goalTracker.check_feedback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback function for subscribing to the feedback message of the robot’s goal.</p>
+<p>This function increments the count of either the reached goals or cancelled goals based on the message received.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>PlanningActionFeedback</em>) – The feedback message received from the robot.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="scripts.goalTracker.handle_goal_tracker">
+<code class="descclassname">scripts.goalTracker.</code><code class="descname">handle_goal_tracker</code><span class="sig-paren">(</span><em>req</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/goalTracker.html#handle_goal_tracker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.goalTracker.handle_goal_tracker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Service handler function for the custom service that provides the count of reached and cancelled goals.</p>
+<p>This function handles requests for the custom service by returning the current count of reached and cancelled goals.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>req</strong> (<em>GoalCountRequest</em>) – The request message received by the service.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The response message containing the current count of reached and cancelled goals.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">GoalCountResponse</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="scripts.goalTracker.main">
+<code class="descclassname">scripts.goalTracker.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/goalTracker.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#scripts.goalTracker.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main function to start the ROS node for goal tracking.</p>
+<p>This function initializes the ROS node and starts the custom service for goal tracking. It also subscribes to the feedback
+message from the robot’s goal and calls the check_feedback function for each message received.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>None</strong> – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
 </tr>
 </tbody>
 </table>
