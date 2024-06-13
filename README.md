@@ -1,7 +1,7 @@
 # Ros Action Server for Motion Planning
 
-The aim of the project is wirting an action server to take input from the user in order to set a goal 
-position or cancel it whenever user desired. The action server and the motion planning algotihms are already given. 
+The project aims to write an action server to take input from the user to set a goal 
+position or cancel it whenever user desires. The action server and the motion planning algorithms are already given. 
 Four nodes are developed by me as follows:
 Node A: client
 Node A: publisher
@@ -40,14 +40,14 @@ Node A: Is an action client which takes command from the server part bug-0 and t
       #if it is c call cancel goal
   
   
-The remaining part of the node A is just publishes the current position of the robot. It has a structure like below:
+The remaining part of the node A just publishes the current position of the robot. It has a structure like below:
   
     def odom callback():
-      #extracts position and velocity data from the the topic
+      #extracts position and velocity data from the topic
       #then creates a custom message called RobotState
-      #then assignes these variables to the custom message
+      #then assign these variables to the custom message
       
-After that  there is a node initialization and odometry subscriber
+After that,  there is a node initialization and odometry subscriber
 
 
 
