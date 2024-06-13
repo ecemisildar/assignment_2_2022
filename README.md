@@ -1,4 +1,4 @@
-# Research-Track-Assignment-2-ROS
+# Ros Action Server for Motion Planning
 
 The aim of the project is wirting an action server to take input from the user in order to set a goal 
 position or cancel it whenever user desired. The action server and the motion planning algotihms are already given. 
